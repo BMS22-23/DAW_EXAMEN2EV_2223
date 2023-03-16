@@ -11,12 +11,12 @@ using LotoClassNS;
 
 namespace ExamenLoto
 {
-    public partial class Form1 : Form
+    public partial class Examen2EVBMS2223 : Form
     {
-        public loto miLoto, miGanadora;
+        public BMS2223 miLoto, miGanadora;
         private TextBox[] combinacion = new TextBox[6]; // Estos arrays se usan para recorrer de manera más sencilla los controles
         private TextBox[] ganadora = new TextBox[6];
-        public Form1()
+        public Examen2EVBMS2223()
         {
             InitializeComponent();
             combinacion[0] = txtNumero1; ganadora[0] = txtGanadora1;
@@ -25,7 +25,7 @@ namespace ExamenLoto
             combinacion[3] = txtNumero4; ganadora[3] = txtGanadora4;
             combinacion[4] = txtNumero5; ganadora[4] = txtGanadora5;
             combinacion[5] = txtNumero6; ganadora[5] = txtGanadora6;
-            miGanadora = new loto(); // generamos la combinación ganadora
+            miGanadora = new BMS2223(); // generamos la combinación ganadora
             for (int i = 0; i < 6; i++)
                 ganadora[i].Text = Convert.ToString(miGanadora.Nums[i]);
 
@@ -33,7 +33,7 @@ namespace ExamenLoto
 
         private void btGenerar_Click(object sender, EventArgs e)
         {
-            miLoto = new loto(); // usamos constructor vacío, se genera combinación aleatoria
+            miLoto = new BMS2223(); // usamos constructor vacío, se genera combinación aleatoria
             for ( int i=0; i<6; i++ )
                 combinacion[i].Text = Convert.ToString(miLoto.Nums[i]);
         }
@@ -43,7 +43,7 @@ namespace ExamenLoto
             int[] nums = new int[6];    
             for (int i = 0; i < 6; i++)
                 nums[i] = Convert.ToInt32(combinacion[i].Text);
-            miLoto = new loto(nums);
+            miLoto = new BMS2223(nums);
             if (miLoto.ok)
                 MessageBox.Show("Combinación válida");
             else
@@ -55,13 +55,13 @@ namespace ExamenLoto
             int[] nums = new int[6];
             for (int i = 0; i < 6; i++)
                 nums[i] = Convert.ToInt32(combinacion[i].Text);
-            miLoto = new loto(nums);
+            miLoto = new BMS2223(nums);
             if (miLoto.ok)
             {
                 nums = new int[6];
                 for (int i = 0; i < 6; i++)
                     nums[i] = Convert.ToInt32(combinacion[i].Text);
-                int aciertos = miGanadora.comprobar(nums);
+                int aciertos = miGanadora.Comprobar(nums);
                 if (aciertos < 3)
                     MessageBox.Show("No ha resultado premiada");
                 else
