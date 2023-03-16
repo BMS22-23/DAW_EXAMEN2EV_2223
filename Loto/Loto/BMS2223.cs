@@ -12,7 +12,7 @@ namespace LotoClassNS
         private const int NUMERO_MAYOR = 49;
 
         private int[] _nums = new int[MAX_NUMEROS];   // numeros de la combinación
-        public bool ok = false;      // combinación válida (si es aleatoria, siempre es válida, si no, no tiene porqué)
+        public bool esCombinacionValida = false;      // combinación válida (si es aleatoria, siempre es válida, si no, no tiene porqué)
 
         public int[] Nums { 
             get => _nums; 
@@ -49,14 +49,14 @@ namespace LotoClassNS
                 }
             } while (i<MAX_NUMEROS);
 
-            ok=true;
+            esCombinacionValida=true;
         }
 
         // La segunda forma de crear una combinación es pasando el conjunto de números
         // misnums es un array de enteros con la combinación que quiero crear (no tiene porqué ser válida)
 
         /// <summary>
-        /// 
+        /// Constructor con parámetro para instanciar la clase
         /// </summary>
         /// <param name="misnums"></param>
         public BMS2223(int[] misnums)  // misnumeros: combinación con la que queremos inicializar la clase
@@ -70,21 +70,27 @@ namespace LotoClassNS
                     if (i==j)
                         Nums[i]=misnums[i]; // validamos la combinación
                     else {
-                        ok=false;
+                        esCombinacionValida=false;
                         return;
                     }
                 }
                 else
                 {
-                    ok=false;     // La combinación no es válida, terminamos
+                    esCombinacionValida=false;     // La combinación no es válida, terminamos
                     return;
                 }
-	    ok=true;
+	    esCombinacionValida=true;
         }
 
         // Método que comprueba el número de aciertos
         // premi es un array con la combinación ganadora
         // se devuelve el número de aciertos
+
+        /// <summary>
+        /// Comprueba el número de aciertos 
+        /// </summary>
+        /// <param name="premi">Array con la combinación ganadora</param>
+        /// <returns>El número de aciertos</returns>
         public int Comprobar(int[] premi)
         {
             int a=0;                    // número de aciertos

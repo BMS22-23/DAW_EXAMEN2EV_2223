@@ -14,8 +14,9 @@ namespace ExamenLoto
     public partial class Examen2EVBMS2223 : Form
     {
         public BMS2223 miLoto, miGanadora;
-        private TextBox[] combinacion = new TextBox[6]; // Estos arrays se usan para recorrer de manera más sencilla los controles
-        private TextBox[] ganadora = new TextBox[6];
+        public const int NUMEROMAXIMONUMEROS = 6;
+        private TextBox[] combinacion = new TextBox[NUMEROMAXIMONUMEROS]; // Estos arrays se usan para recorrer de manera más sencilla los controles
+        private TextBox[] ganadora = new TextBox[NUMEROMAXIMONUMEROS];
         public Examen2EVBMS2223()
         {
             InitializeComponent();
@@ -26,7 +27,7 @@ namespace ExamenLoto
             combinacion[4] = txtNumero5; ganadora[4] = txtGanadora5;
             combinacion[5] = txtNumero6; ganadora[5] = txtGanadora6;
             miGanadora = new BMS2223(); // generamos la combinación ganadora
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < NUMEROMAXIMONUMEROS; i++)
                 ganadora[i].Text = Convert.ToString(miGanadora.Nums[i]);
 
         }
@@ -34,17 +35,17 @@ namespace ExamenLoto
         private void btGenerar_Click(object sender, EventArgs e)
         {
             miLoto = new BMS2223(); // usamos constructor vacío, se genera combinación aleatoria
-            for ( int i=0; i<6; i++ )
+            for ( int i=0; i< NUMEROMAXIMONUMEROS; i++ )
                 combinacion[i].Text = Convert.ToString(miLoto.Nums[i]);
         }
 
         private void btValidar_Click(object sender, EventArgs e)
         {
-            int[] nums = new int[6];    
-            for (int i = 0; i < 6; i++)
+            int[] nums = new int[NUMEROMAXIMONUMEROS];    
+            for (int i = 0; i < NUMEROMAXIMONUMEROS; i++)
                 nums[i] = Convert.ToInt32(combinacion[i].Text);
             miLoto = new BMS2223(nums);
-            if (miLoto.ok)
+            if (miLoto.esCombinacionValida)
                 MessageBox.Show("Combinación válida");
             else
                 MessageBox.Show("Combinación no válida");
@@ -52,14 +53,14 @@ namespace ExamenLoto
 
         private void btComprobar_Click(object sender, EventArgs e)
         {
-            int[] nums = new int[6];
-            for (int i = 0; i < 6; i++)
+            int[] nums = new int[NUMEROMAXIMONUMEROS];
+            for (int i = 0; i < NUMEROMAXIMONUMEROS; i++)
                 nums[i] = Convert.ToInt32(combinacion[i].Text);
             miLoto = new BMS2223(nums);
-            if (miLoto.ok)
+            if (miLoto.esCombinacionValida)
             {
-                nums = new int[6];
-                for (int i = 0; i < 6; i++)
+                nums = new int[NUMEROMAXIMONUMEROS];
+                for (int i = 0; i < NUMEROMAXIMONUMEROS; i++)
                     nums[i] = Convert.ToInt32(combinacion[i].Text);
                 int aciertos = miGanadora.Comprobar(nums);
                 if (aciertos < 3)
